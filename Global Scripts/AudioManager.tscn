@@ -1,0 +1,124 @@
+[gd_scene format=3 uid="uid://byjhekchbwmxb"]
+
+[ext_resource type="Script" uid="uid://81ps0od6g0y6" path="res://Global Scripts/audio_manager.gd" id="1_jj1ki"]
+[ext_resource type="AudioStream" uid="uid://crt2d74b158bq" path="res://Assets/Sounds/Footstep Concrete Running 1_01.wav" id="2_4kii2"]
+[ext_resource type="AudioStream" uid="uid://dcrfnqlxko0tg" path="res://Assets/Sounds/Footstep Concrete Running 1_02.wav" id="3_w0lvm"]
+[ext_resource type="AudioStream" uid="uid://b3jh4hivdffu1" path="res://Assets/Sounds/Footstep Concrete Running 1_03.wav" id="4_v14sc"]
+[ext_resource type="AudioStream" uid="uid://csg7onsg7q8ps" path="res://Assets/Sounds/Footstep Concrete Running 1_04.wav" id="5_2xiuc"]
+[ext_resource type="AudioStream" uid="uid://el0vciq0y3l7" path="res://Assets/Sounds/Footstep Concrete Running 1_05.wav" id="6_xt2nc"]
+[ext_resource type="AudioStream" uid="uid://cdbt3g7dxi7bt" path="res://Assets/Sounds/Footstep Concrete Running 1_06.wav" id="7_j7o50"]
+[ext_resource type="AudioStream" uid="uid://begujcjlf42d3" path="res://Assets/Sounds/Footstep Concrete Running 1_07.wav" id="8_5t0de"]
+[ext_resource type="AudioStream" uid="uid://docfw8x222uxr" path="res://Assets/Sounds/Punch Heavy A.wav" id="9_spq32"]
+[ext_resource type="AudioStream" uid="uid://05y62x03hw5v" path="res://Assets/Sounds/Punch Heavy B.wav" id="10_xpjq5"]
+[ext_resource type="AudioStream" uid="uid://badco0wnvrgdu" path="res://Assets/Sounds/Punch Heavy C.wav" id="11_u7v6i"]
+[ext_resource type="AudioStream" uid="uid://4s0r5g8rh3i6" path="res://addons/kenney digital audio/phase_jump_1.ogg" id="12_xt2nc"]
+[ext_resource type="AudioStream" uid="uid://d36w0xhwrdkmu" path="res://addons/kenney digital audio/phase_jump_2.ogg" id="13_j7o50"]
+[ext_resource type="AudioStream" uid="uid://b1d1li70yks7m" path="res://addons/kenney digital audio/phase_jump_3.ogg" id="14_5t0de"]
+[ext_resource type="AudioStream" uid="uid://dp4mkych11d4q" path="res://addons/kenney digital audio/phase_jump_4.ogg" id="15_spq32"]
+[ext_resource type="AudioStream" uid="uid://cnv2wof3fjxko" path="res://addons/kenney digital audio/phase_jump_5.ogg" id="16_xpjq5"]
+[ext_resource type="AudioStream" uid="uid://c7r05q3t3vymc" path="res://Assets/Sounds/Misc1/Balloon Pop 1.wav" id="17_5t0de"]
+[ext_resource type="AudioStream" uid="uid://brkggygql3awn" path="res://Assets/Sounds/Misc1/Hit damage 1.wav" id="18_spq32"]
+[ext_resource type="AudioStream" uid="uid://cqtbl5wo78kdf" path="res://Assets/Sounds/Misc2/hurt_1.wav" id="19_odo7w"]
+[ext_resource type="AudioStream" uid="uid://ccxmvw2sg1wcs" path="res://Assets/Sounds/Misc2/hurt_2.wav" id="20_6h5ve"]
+[ext_resource type="AudioStream" uid="uid://ddgcr6r72n18m" path="res://Assets/Sounds/Misc2/hurt_3.wav" id="21_kp7vm"]
+[ext_resource type="AudioStream" uid="uid://c1q8lclqbn2br" path="res://Assets/Sounds/Misc2/hurt_4.wav" id="22_3hpms"]
+[ext_resource type="AudioStream" uid="uid://dgjbnko0da768" path="res://Assets/Sounds/Misc2/laser_1.wav" id="23_dolr3"]
+[ext_resource type="AudioStream" uid="uid://dtuut8vni5ifb" path="res://Assets/Sounds/Misc2/laser_5.wav" id="24_qxowr"]
+[ext_resource type="AudioStream" uid="uid://chggof8w0b0ep" path="res://Assets/Sounds/Misc2/uh-oh.wav" id="25_hhooe"]
+[ext_resource type="AudioStream" uid="uid://cbpehkofe6la6" path="res://Assets/Sounds/Misc2/door_close.wav" id="26_3kkn4"]
+
+[node name="AudioManager" type="Node" unique_id=789107121]
+script = ExtResource("1_jj1ki")
+
+[node name="WalkAudio" type="Node" parent="." unique_id=1502915367]
+
+[node name="FootstepConcreteRunning101" type="AudioStreamPlayer" parent="WalkAudio" unique_id=1070182039]
+stream = ExtResource("2_4kii2")
+
+[node name="FootstepConcreteRunning102" type="AudioStreamPlayer" parent="WalkAudio" unique_id=235698428]
+stream = ExtResource("3_w0lvm")
+
+[node name="FootstepConcreteRunning103" type="AudioStreamPlayer" parent="WalkAudio" unique_id=1588916797]
+stream = ExtResource("4_v14sc")
+
+[node name="FootstepConcreteRunning104" type="AudioStreamPlayer" parent="WalkAudio" unique_id=998467339]
+stream = ExtResource("5_2xiuc")
+
+[node name="FootstepConcreteRunning105" type="AudioStreamPlayer" parent="WalkAudio" unique_id=146332918]
+stream = ExtResource("6_xt2nc")
+
+[node name="FootstepConcreteRunning106" type="AudioStreamPlayer" parent="WalkAudio" unique_id=1088061813]
+stream = ExtResource("7_j7o50")
+
+[node name="FootstepConcreteRunning107" type="AudioStreamPlayer" parent="WalkAudio" unique_id=1408244162]
+stream = ExtResource("8_5t0de")
+
+[node name="StompAudio" type="Node" parent="." unique_id=525419469]
+
+[node name="PunchHeavyA" type="AudioStreamPlayer" parent="StompAudio" unique_id=1681063070]
+stream = ExtResource("9_spq32")
+
+[node name="PunchHeavyB" type="AudioStreamPlayer" parent="StompAudio" unique_id=1637319688]
+stream = ExtResource("10_xpjq5")
+
+[node name="PunchHeavyC" type="AudioStreamPlayer" parent="StompAudio" unique_id=92660362]
+stream = ExtResource("11_u7v6i")
+
+[node name="JumpAudio" type="Node" parent="." unique_id=4057424]
+
+[node name="PhaseJump1" type="AudioStreamPlayer" parent="JumpAudio" unique_id=1700819949]
+stream = ExtResource("12_xt2nc")
+
+[node name="PhaseJump2" type="AudioStreamPlayer" parent="JumpAudio" unique_id=50144046]
+stream = ExtResource("13_j7o50")
+
+[node name="PhaseJump3" type="AudioStreamPlayer" parent="JumpAudio" unique_id=1840182396]
+stream = ExtResource("14_5t0de")
+
+[node name="PhaseJump4" type="AudioStreamPlayer" parent="JumpAudio" unique_id=2058629702]
+stream = ExtResource("15_spq32")
+
+[node name="PhaseJump5" type="AudioStreamPlayer" parent="JumpAudio" unique_id=620798444]
+stream = ExtResource("16_xpjq5")
+
+[node name="EnemyHit" type="Node" parent="." unique_id=851219337]
+
+[node name="BalloonPop1" type="AudioStreamPlayer" parent="EnemyHit" unique_id=1676587741]
+stream = ExtResource("17_5t0de")
+
+[node name="HitDamage1" type="AudioStreamPlayer" parent="EnemyHit" unique_id=521482802]
+stream = ExtResource("18_spq32")
+
+[node name="AudioList" type="Node" parent="." unique_id=1685382470]
+
+[node name="PlayerHit" type="Node" parent="." unique_id=23249718]
+
+[node name="Hurt1" type="AudioStreamPlayer" parent="PlayerHit" unique_id=347702459]
+stream = ExtResource("19_odo7w")
+
+[node name="Hurt2" type="AudioStreamPlayer" parent="PlayerHit" unique_id=451835369]
+stream = ExtResource("20_6h5ve")
+
+[node name="Hurt3" type="AudioStreamPlayer" parent="PlayerHit" unique_id=985689777]
+stream = ExtResource("21_kp7vm")
+
+[node name="Hurt4" type="AudioStreamPlayer" parent="PlayerHit" unique_id=335618663]
+stream = ExtResource("22_3hpms")
+
+[node name="PlayerDrop" type="Node" parent="." unique_id=1657599517]
+
+[node name="Laser1" type="AudioStreamPlayer" parent="PlayerDrop" unique_id=1462825658]
+stream = ExtResource("23_dolr3")
+
+[node name="Laser5" type="AudioStreamPlayer" parent="PlayerDrop" unique_id=61661583]
+stream = ExtResource("24_qxowr")
+
+[node name="PlayerGameOver" type="Node" parent="." unique_id=965000776]
+
+[node name="UhOh" type="AudioStreamPlayer" parent="PlayerGameOver" unique_id=1147816274]
+stream = ExtResource("25_hhooe")
+
+[node name="DoorSlam" type="Node" parent="." unique_id=1296995902]
+
+[node name="DoorClose" type="AudioStreamPlayer" parent="DoorSlam" unique_id=342830932]
+stream = ExtResource("26_3kkn4")

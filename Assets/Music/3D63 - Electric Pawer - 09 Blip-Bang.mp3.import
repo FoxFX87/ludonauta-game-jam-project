@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://6q6nxkgmqnxv"
+path="res://.godot/imported/3D63 - Electric Pawer - 09 Blip-Bang.mp3-db2364c7d1f4c4cff6ef1c92a1ab6530.mp3str"
+
+[deps]
+
+source_file="res://Assets/Music/3D63 - Electric Pawer - 09 Blip-Bang.mp3"
+dest_files=["res://.godot/imported/3D63 - Electric Pawer - 09 Blip-Bang.mp3-db2364c7d1f4c4cff6ef1c92a1ab6530.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

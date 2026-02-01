@@ -1,0 +1,56 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="Ludonauta Game Jam Project"
+run/main_scene="uid://d2eesxh8e60wl"
+config/features=PackedStringArray("4.6", "Forward Plus")
+config/icon="res://icon.svg"
+
+[autoload]
+
+Global="*uid://7ihuynu177ve"
+Events="*uid://58dahubnjrb3"
+AudioManager="*uid://byjhekchbwmxb"
+MusicManager="*uid://klqktsr2spx7"
+
+[display]
+
+window/size/viewport_height=896
+window/stretch/mode="canvas_items"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/MusicManager/plugin.cfg")
+
+[global_group]
+
+Enemy="Basic Enemy"
+Bounceable="Player can bounce on"
+
+[layer_names]
+
+2d_physics/layer_1="Solid"
+2d_physics/layer_2="PassThrough"
+2d_physics/layer_3="Enemies"
+2d_physics/layer_4="PlayerHitArea"
+2d_physics/layer_5="EnemyHitArea"
+2d_physics/layer_6="Hazard"
+2d_physics/layer_7="Player"
+
+[physics]
+
+3d/physics_engine="Jolt Physics"
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0
+rendering_device/driver.windows="d3d12"

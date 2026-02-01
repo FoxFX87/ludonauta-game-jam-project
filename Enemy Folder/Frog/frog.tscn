@@ -1,0 +1,119 @@
+[gd_scene format=3 uid="uid://d1wcm2eycv88e"]
+
+[ext_resource type="Texture2D" uid="uid://b30l108ifv4nx" path="res://Assets/Kenneys/Sprites/Enemies/Default/frog_jump.png" id="1_ilaht"]
+[ext_resource type="Script" uid="uid://djmfrgvlhcula" path="res://Enemy Folder/Frog/frog.gd" id="1_ukydl"]
+[ext_resource type="Texture2D" uid="uid://bx2nf4wj4u4xv" path="res://Assets/Kenneys/Sprites/Enemies/Default/frog_idle.png" id="2_6v8do"]
+[ext_resource type="Script" uid="uid://bfl1jsgloerd1" path="res://Components/AIWallFloorComponent.gd" id="3_5o4vm"]
+[ext_resource type="Script" uid="uid://bgxf5e2vkqcsb" path="res://Components/EnemyControlComponent.gd" id="4_rbp2r"]
+[ext_resource type="Script" uid="uid://dsdgijp51msde" path="res://Components/SquashStretchComponent.gd" id="5_ukydl"]
+[ext_resource type="Script" uid="uid://cxljn6crumpg3" path="res://Combat/HitArea2D.gd" id="6_5o4vm"]
+[ext_resource type="Script" uid="uid://d2rvwcr6fdon5" path="res://Combat/HurtArea2D.gd" id="7_rbp2r"]
+[ext_resource type="AudioStream" uid="uid://4s0r5g8rh3i6" path="res://addons/kenney digital audio/phase_jump_1.ogg" id="10_30jfb"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_30jfb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_ilaht")
+}],
+"loop": true,
+"name": &"Air",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_6v8do")
+}],
+"loop": true,
+"name": &"Idle",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ukydl"]
+size = Vector2(64, 56)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_30jfb"]
+size = Vector2(48, 40)
+
+[node name="frog0" type="CharacterBody2D" unique_id=459685531 groups=["Bounceable", "Enemy"]]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_ukydl")
+
+[node name="SpriteOrigin" type="Node2D" parent="." unique_id=1512811285]
+
+[node name="Sprite" type="AnimatedSprite2D" parent="SpriteOrigin" unique_id=1092793703]
+position = Vector2(0, -32)
+sprite_frames = SubResource("SpriteFrames_30jfb")
+animation = &"Idle"
+
+[node name="AIWallFloorComponent" type="Node" parent="." unique_id=1007136729 node_paths=PackedStringArray("left_wall_ray", "right_wall_ray")]
+script = ExtResource("3_5o4vm")
+left_wall_ray = NodePath("../LeftWall")
+right_wall_ray = NodePath("../RightWall")
+metadata/_custom_type_script = "uid://bfl1jsgloerd1"
+
+[node name="EnemyControlComponent" type="Node" parent="." unique_id=666281689 node_paths=PackedStringArray("actor")]
+script = ExtResource("4_rbp2r")
+actor = NodePath("..")
+speed = 400.0
+jump_strength = 600.0
+metadata/_custom_type_script = "uid://bgxf5e2vkqcsb"
+
+[node name="SquashStretchComponent" type="Node" parent="." unique_id=2098153273 node_paths=PackedStringArray("actor")]
+script = ExtResource("5_ukydl")
+actor = NodePath("../SpriteOrigin")
+metadata/_custom_type_script = "uid://dsdgijp51msde"
+
+[node name="LeftWall" type="RayCast2D" parent="." unique_id=804018831]
+position = Vector2(0, -8)
+target_position = Vector2(-50, 0)
+collision_mask = 3
+
+[node name="RightWall" type="RayCast2D" parent="." unique_id=1069925589]
+position = Vector2(0, -8)
+target_position = Vector2(50, 0)
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2067337111]
+position = Vector2(0, -28)
+shape = SubResource("RectangleShape2D_ukydl")
+debug_color = Color(0, 0.6, 0.69803923, 0)
+
+[node name="HitArea2D" type="Area2D" parent="." unique_id=1411708995]
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("6_5o4vm")
+metadata/_custom_type_script = "uid://cxljn6crumpg3"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitArea2D" unique_id=2052427899]
+position = Vector2(0, -28)
+shape = SubResource("RectangleShape2D_30jfb")
+debug_color = Color(0.69803923, 0, 0, 0)
+
+[node name="HurtArea2D" type="Area2D" parent="." unique_id=2103313977]
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("7_rbp2r")
+metadata/_custom_type_script = "uid://d2rvwcr6fdon5"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtArea2D" unique_id=950974757]
+position = Vector2(0, -28)
+shape = SubResource("RectangleShape2D_ukydl")
+debug_color = Color(0, 0.6, 0.69803923, 0)
+
+[node name="JumpTimer" type="Timer" parent="." unique_id=1105553563]
+wait_time = 3.0
+one_shot = true
+
+[node name="HopAudio" type="AudioStreamPlayer2D" parent="." unique_id=944647989]
+stream = ExtResource("10_30jfb")
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="." unique_id=99319473]
+rect = Rect2(-40, -64, 80, 74)
+
+[connection signal="switch_left" from="AIWallFloorComponent" to="." method="_on_ai_wall_floor_component_switch_left"]
+[connection signal="switch_right" from="AIWallFloorComponent" to="." method="_on_ai_wall_floor_component_switch_right"]
+[connection signal="hurt" from="HurtArea2D" to="." method="_on_hurt_area_2d_hurt"]
+[connection signal="timeout" from="JumpTimer" to="." method="_on_jump_timer_timeout"]
+[connection signal="screen_entered" from="VisibleOnScreenEnabler2D" to="." method="_on_visible_on_screen_enabler_2d_screen_entered"]

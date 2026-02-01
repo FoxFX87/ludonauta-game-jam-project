@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="MusicTrack" format=3 uid="uid://cg8lpm1fepw7d"]
+
+[ext_resource type="Script" uid="uid://04miqeasi4r" path="res://addons/MusicManager/music_track.gd" id="1_r6sas"]
+[ext_resource type="AudioStream" uid="uid://6q6nxkgmqnxv" path="res://Assets/Music/3D63 - Electric Pawer - 09 Blip-Bang.mp3" id="2_pa34y"]
+
+[resource]
+script = ExtResource("1_r6sas")
+name = "MainGame"
+artist = "Electric Pawer"
+track = ExtResource("2_pa34y")
+metadata/_custom_type_script = "uid://04miqeasi4r"

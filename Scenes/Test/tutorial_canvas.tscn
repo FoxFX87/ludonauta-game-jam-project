@@ -1,0 +1,103 @@
+[gd_scene format=3 uid="uid://1ymvjvcxxo1d"]
+
+[ext_resource type="Script" uid="uid://mnsrgl6wi0gp" path="res://Procedural Generation Vertical/Rooms/tutorial_canvas.gd" id="1_mej0a"]
+[ext_resource type="Texture2D" uid="uid://c3ihnfmnvmt2l" path="res://addons/kenney_input_prompts/Keyboard & Mouse/Default/keyboard_arrow_left.png" id="2_4e01e"]
+[ext_resource type="Texture2D" uid="uid://c38u60cotsr6s" path="res://addons/kenney_input_prompts/Keyboard & Mouse/Default/keyboard_arrow_right.png" id="3_ot4la"]
+[ext_resource type="Texture2D" uid="uid://djfomugr5ajts" path="res://addons/kenney_input_prompts/Keyboard & Mouse/Default/keyboard_arrow_down.png" id="4_67mlj"]
+[ext_resource type="Texture2D" uid="uid://b5yq8m783t3g1" path="res://addons/kenney_input_prompts/Keyboard & Mouse/Default/keyboard_space.png" id="5_q0gfl"]
+
+[node name="TutorialCanvas" type="CanvasLayer" unique_id=193168587]
+script = ExtResource("1_mej0a")
+
+[node name="Instructions" type="Control" parent="." unique_id=1435567571]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="Panel" type="Panel" parent="Instructions" unique_id=764117705]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -192.0
+offset_right = 288.0
+grow_vertical = 0
+
+[node name="CenterContainer" type="CenterContainer" parent="Instructions/Panel" unique_id=1382187893]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Instructions/Panel/CenterContainer" unique_id=215422756]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Instructions/Panel/CenterContainer/VBoxContainer" unique_id=1699838283]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Instructions/Panel/CenterContainer/VBoxContainer/HBoxContainer" unique_id=352703515]
+layout_mode = 2
+texture = ExtResource("2_4e01e")
+
+[node name="TextureRect2" type="TextureRect" parent="Instructions/Panel/CenterContainer/VBoxContainer/HBoxContainer" unique_id=1576217822]
+layout_mode = 2
+texture = ExtResource("3_ot4la")
+
+[node name="Label" type="Label" parent="Instructions/Panel/CenterContainer/VBoxContainer/HBoxContainer" unique_id=772889892]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "MOVE"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Instructions/Panel/CenterContainer/VBoxContainer" unique_id=1573696029]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="Instructions/Panel/CenterContainer/VBoxContainer/HBoxContainer2" unique_id=1822330510]
+layout_mode = 2
+texture = ExtResource("4_67mlj")
+
+[node name="Label" type="Label" parent="Instructions/Panel/CenterContainer/VBoxContainer/HBoxContainer2" unique_id=288383951]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "DROP"
+
+[node name="Panel2" type="Panel" parent="Instructions" unique_id=1957312416]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -288.0
+offset_top = -192.0
+grow_horizontal = 0
+grow_vertical = 0
+
+[node name="CenterContainer" type="CenterContainer" parent="Instructions/Panel2" unique_id=1292961050]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -62.5
+offset_bottom = 62.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Instructions/Panel2/CenterContainer" unique_id=1179461860]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Instructions/Panel2/CenterContainer/VBoxContainer" unique_id=343243647]
+layout_mode = 2
+theme_override_font_sizes/font_size = 30
+text = "JUMP / WALL JUMP"
+
+[node name="TextureRect" type="TextureRect" parent="Instructions/Panel2/CenterContainer/VBoxContainer" unique_id=1758028454]
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("5_q0gfl")
+stretch_mode = 5

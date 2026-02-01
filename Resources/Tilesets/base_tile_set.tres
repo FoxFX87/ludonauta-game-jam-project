@@ -1,0 +1,26 @@
+[gd_resource type="TileSet" format=3 uid="uid://dhcputvxwt2c3"]
+
+[ext_resource type="Texture2D" uid="uid://bfpaexiho02kn" path="res://Assets/Kenneys/Spritesheets/spritesheet-tiles-default.png" id="1_0e0qh"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_t1ujl"]
+texture = ExtResource("1_0e0qh")
+separation = Vector2i(1, 1)
+texture_region_size = Vector2i(64, 64)
+10:1/0 = 0
+10:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
+10:1/0/physics_layer_1/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
+9:1/0 = 0
+9:1/0/physics_layer_1/polygon_0/points = PackedVector2Array(-32, -32, 32, -32, 32, 32, -32, 32)
+9:1/0/physics_layer_1/polygon_0/one_way = true
+0:7/0 = 0
+0:7/0/physics_layer_2/polygon_0/points = PackedVector2Array(-16, 0, 16, 0, 32, 32, -32, 32)
+
+[resource]
+tile_size = Vector2i(64, 64)
+physics_layer_0/collision_layer = 1
+physics_layer_0/collision_mask = 0
+physics_layer_1/collision_layer = 2
+physics_layer_1/collision_mask = 0
+physics_layer_2/collision_layer = 32
+physics_layer_2/collision_mask = 0
+sources/1 = SubResource("TileSetAtlasSource_t1ujl")

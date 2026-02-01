@@ -1,0 +1,112 @@
+[gd_scene format=3 uid="uid://bfkv1awgnn7lq"]
+
+[ext_resource type="Script" uid="uid://d0m0gyuy6m31q" path="res://Enemy Folder/Bug/bug.gd" id="1_2ksdj"]
+[ext_resource type="Texture2D" uid="uid://cqi6pplm08yn7" path="res://Assets/Kenneys/Sprites/Enemies/Default/ladybug_walk_a.png" id="2_ably3"]
+[ext_resource type="Texture2D" uid="uid://cftunsqq6lgtf" path="res://Assets/Kenneys/Sprites/Enemies/Default/ladybug_walk_b.png" id="3_k7fcu"]
+[ext_resource type="Script" uid="uid://bgxf5e2vkqcsb" path="res://Components/EnemyControlComponent.gd" id="4_854q3"]
+[ext_resource type="Script" uid="uid://bfl1jsgloerd1" path="res://Components/AIWallFloorComponent.gd" id="5_si3ul"]
+[ext_resource type="Script" uid="uid://d2rvwcr6fdon5" path="res://Combat/HurtArea2D.gd" id="6_la3mh"]
+[ext_resource type="Script" uid="uid://cxljn6crumpg3" path="res://Combat/HitArea2D.gd" id="7_lukg8"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_evid0"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_ably3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_k7fcu")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bj68o"]
+size = Vector2(62, 42)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_5nkv7"]
+radius = 21.0
+height = 74.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_xq7lt"]
+radius = 21.023796
+
+[node name="Bug0" type="CharacterBody2D" unique_id=1646735753 groups=["Bounceable", "Enemy"]]
+collision_layer = 4
+collision_mask = 3
+script = ExtResource("1_2ksdj")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=1172708872]
+position = Vector2(0, -32)
+sprite_frames = SubResource("SpriteFrames_evid0")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=997833666]
+position = Vector2(0, -21)
+shape = SubResource("RectangleShape2D_bj68o")
+debug_color = Color(0, 0.6, 0.69803923, 0)
+
+[node name="EnemyControlComponent" type="Node" parent="." unique_id=680088169 node_paths=PackedStringArray("actor")]
+script = ExtResource("4_854q3")
+actor = NodePath("..")
+metadata/_custom_type_script = "uid://bgxf5e2vkqcsb"
+
+[node name="AIWallFloorComponent" type="Node" parent="." unique_id=1787740719 node_paths=PackedStringArray("left_wall_ray", "right_wall_ray", "left_floor_ray", "right_floor_ray")]
+script = ExtResource("5_si3ul")
+left_wall_ray = NodePath("../LeftWall")
+right_wall_ray = NodePath("../RightWall")
+left_floor_ray = NodePath("../LeftFloor")
+right_floor_ray = NodePath("../RightFloor")
+metadata/_custom_type_script = "uid://bfl1jsgloerd1"
+
+[node name="LeftWall" type="RayCast2D" parent="." unique_id=1862862979]
+position = Vector2(0, -21)
+target_position = Vector2(-40, 0)
+collision_mask = 3
+
+[node name="RightWall" type="RayCast2D" parent="." unique_id=1434957576]
+position = Vector2(0, -21)
+target_position = Vector2(40, 0)
+collision_mask = 3
+
+[node name="LeftFloor" type="RayCast2D" parent="." unique_id=1862276800]
+position = Vector2(-40, -24)
+target_position = Vector2(0, 36)
+collision_mask = 3
+
+[node name="RightFloor" type="RayCast2D" parent="." unique_id=31202912]
+position = Vector2(40, -24)
+target_position = Vector2(0, 36)
+collision_mask = 3
+
+[node name="VisibleOnScreenEnabler2D" type="VisibleOnScreenEnabler2D" parent="." unique_id=1133467894]
+rect = Rect2(-44, -43, 88, 45)
+
+[node name="HurtArea2D" type="Area2D" parent="." unique_id=1866432264]
+collision_layer = 0
+collision_mask = 8
+script = ExtResource("6_la3mh")
+metadata/_custom_type_script = "uid://d2rvwcr6fdon5"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtArea2D" unique_id=1085737162]
+position = Vector2(0, -21)
+rotation = -1.5707964
+shape = SubResource("CapsuleShape2D_5nkv7")
+debug_color = Color(0.92156863, 0, 0.69411767, 0)
+
+[node name="HitArea2D" type="Area2D" parent="." unique_id=1114138083]
+collision_layer = 16
+collision_mask = 0
+script = ExtResource("7_lukg8")
+metadata/_custom_type_script = "uid://cxljn6crumpg3"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitArea2D" unique_id=2022904619]
+position = Vector2(0, -21)
+shape = SubResource("CircleShape2D_xq7lt")
+debug_color = Color(0.7019608, 0, 0, 0.10980392)
+
+[connection signal="switch_left" from="AIWallFloorComponent" to="." method="_on_ai_wall_floor_component_switch_left"]
+[connection signal="switch_right" from="AIWallFloorComponent" to="." method="_on_ai_wall_floor_component_switch_right"]
+[connection signal="screen_entered" from="VisibleOnScreenEnabler2D" to="." method="_on_visible_on_screen_enabler_2d_screen_entered"]
+[connection signal="hurt" from="HurtArea2D" to="." method="_on_hurt_area_2d_hurt"]

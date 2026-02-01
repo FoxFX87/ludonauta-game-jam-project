@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="MusicPlaylist" format=3 uid="uid://bh2851lc05pym"]
+
+[ext_resource type="Script" uid="uid://c8i4176osw5wy" path="res://addons/MusicManager/music_playlist.gd" id="1_so3qc"]
+[ext_resource type="Script" uid="uid://04miqeasi4r" path="res://addons/MusicManager/music_track.gd" id="2_0ryms"]
+[ext_resource type="Resource" uid="uid://cg8lpm1fepw7d" path="res://Music/Song/Track1.tres" id="3_0ryms"]
+
+[resource]
+script = ExtResource("1_so3qc")
+name = "MainGame"
+tracks = Array[ExtResource("2_0ryms")]([ExtResource("3_0ryms")])
+metadata/_custom_type_script = "uid://c8i4176osw5wy"

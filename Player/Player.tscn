@@ -1,0 +1,341 @@
+[gd_scene format=3 uid="uid://clvcmiq0klg4p"]
+
+[ext_resource type="Texture2D" uid="uid://bhs5uhley041c" path="res://Assets/smol-paper-sprite/avatars/smol_paper_sprite.png" id="1_3qydi"]
+[ext_resource type="Script" uid="uid://c445vsb2yr6lc" path="res://Player/player.gd" id="1_tok1r"]
+[ext_resource type="Script" uid="uid://c1afjfe6xmf03" path="res://Components/Platformer2DComponent.gd" id="3_ddoul"]
+[ext_resource type="Texture2D" uid="uid://bg6iep6v14hih" path="res://addons/kenney_particle_pack/circle_01.png" id="3_dm7nj"]
+[ext_resource type="Script" uid="uid://cxljn6crumpg3" path="res://Combat/HitArea2D.gd" id="4_3mea3"]
+[ext_resource type="Script" uid="uid://dyohetfk3j202" path="res://FSM/StateMachine.gd" id="4_8g4oa"]
+[ext_resource type="Script" uid="uid://dsdgijp51msde" path="res://Components/SquashStretchComponent.gd" id="4_j23h2"]
+[ext_resource type="Script" uid="uid://dfkfs2t2qqqij" path="res://Components/bouncealbe_component.gd" id="5_5wa8t"]
+[ext_resource type="Script" uid="uid://b77jodx2y4ck" path="res://Player/PlayerState.gd" id="5_6ysni"]
+[ext_resource type="Script" uid="uid://d2rvwcr6fdon5" path="res://Combat/HurtArea2D.gd" id="5_7v5gs"]
+[ext_resource type="Script" uid="uid://bryq7wqbx8rjj" path="res://Player/idle.gd" id="5_s1rgi"]
+[ext_resource type="Script" uid="uid://d0xrujkiio3n5" path="res://Player/move.gd" id="6_j23h2"]
+[ext_resource type="Script" uid="uid://bbooxrbkqa2pv" path="res://Player/air.gd" id="7_0j2ni"]
+[ext_resource type="Script" uid="uid://cfchlimeaix22" path="res://Player/drop.gd" id="9_0j2ni"]
+[ext_resource type="Script" uid="uid://brpnqnjur2pyw" path="res://Player/wall_jump.gd" id="10_v0k0e"]
+[ext_resource type="Script" uid="uid://c5n2etpin5rw6" path="res://Player/hard_land.gd" id="12_p7tob"]
+[ext_resource type="AudioStream" uid="uid://docfw8x222uxr" path="res://Assets/Sounds/Punch Heavy A.wav" id="16_8sa4y"]
+
+[sub_resource type="Animation" id="Animation_s1rgi"]
+resource_name = "Air"
+length = 0.1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpriteOrigin/SpriteDirection/Sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 4)]
+}
+
+[sub_resource type="Animation" id="Animation_8g4oa"]
+resource_name = "Idle"
+loop_mode = 2
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpriteOrigin/SpriteDirection/Sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.4, 0.5, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 0), Vector2i(0, 0), Vector2i(1, 0), Vector2i(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_6ysni"]
+resource_name = "Move"
+length = 0.3
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpriteOrigin/SpriteDirection/Sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [Vector2i(0, 1), Vector2i(1, 1), Vector2i(2, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_vlldt"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SpriteOrigin/SpriteDirection/Sprite:frame_coords")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [Vector2i(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_s1rgi"]
+_data = {
+&"Air": SubResource("Animation_s1rgi"),
+&"Idle": SubResource("Animation_8g4oa"),
+&"Move": SubResource("Animation_6ysni"),
+&"RESET": SubResource("Animation_vlldt")
+}
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0j2ni"]
+radius = 29.0
+height = 100.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5wa8t"]
+size = Vector2(42, 11)
+
+[sub_resource type="Curve" id="Curve_3mea3"]
+_data = [Vector2(0, 0.73241854), 0.0, 0.0, 0, 0, Vector2(0.62096775, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_7v5gs"]
+curve = SubResource("Curve_3mea3")
+
+[sub_resource type="Curve" id="Curve_8sa4y"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_3nb2p"]
+curve = SubResource("Curve_8sa4y")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_d7xyo"]
+particle_flag_disable_z = true
+gravity = Vector3(0, 0, 0)
+scale_min = 2.0
+scale_max = 2.0
+scale_curve = SubResource("CurveTexture_3nb2p")
+alpha_curve = SubResource("CurveTexture_7v5gs")
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_3mea3"]
+radius = 22.0
+height = 94.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7v5gs"]
+radius = 231.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8sa4y"]
+radius = 17.0
+height = 84.0
+
+[node name="Player" type="CharacterBody2D" unique_id=1486747228]
+collision_layer = 64
+collision_mask = 3
+floor_constant_speed = true
+script = ExtResource("1_tok1r")
+
+[node name="SpriteOrigin" type="Node2D" parent="." unique_id=1240289642]
+
+[node name="SpriteDirection" type="Node2D" parent="SpriteOrigin" unique_id=1518432023]
+
+[node name="Sprite" type="Sprite2D" parent="SpriteOrigin/SpriteDirection" unique_id=1935786724]
+position = Vector2(0, -64)
+texture = ExtResource("1_3qydi")
+hframes = 3
+vframes = 5
+
+[node name="SpritePlayer" type="AnimationPlayer" parent="SpriteOrigin" unique_id=1422041492]
+root_node = NodePath("../..")
+libraries/ = SubResource("AnimationLibrary_s1rgi")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=15374913]
+position = Vector2(0, -50)
+shape = SubResource("CapsuleShape2D_0j2ni")
+debug_color = Color(0.9699612, 0, 0.45472074, 0)
+
+[node name="BounceArea" type="Area2D" parent="." unique_id=1811596076]
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BounceArea" unique_id=1593288519]
+position = Vector2(0, -4.5)
+shape = SubResource("RectangleShape2D_5wa8t")
+debug_color = Color(0, 0.6, 0.69803923, 0)
+
+[node name="WallCheck" type="RayCast2D" parent="." unique_id=1091933744]
+position = Vector2(0, -50)
+target_position = Vector2(48, 0)
+
+[node name="ShockwaveVFX" type="GPUParticles2D" parent="." unique_id=2067176608]
+emitting = false
+amount = 1
+texture = ExtResource("3_dm7nj")
+lifetime = 0.2
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_d7xyo")
+
+[node name="HazardArea" type="Area2D" parent="." unique_id=768488490]
+collision_layer = 0
+collision_mask = 32
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HazardArea" unique_id=837865612]
+position = Vector2(0, -50)
+shape = SubResource("CapsuleShape2D_3mea3")
+debug_color = Color(0.007567402, 0, 0.96862745, 0)
+
+[node name="HitArea2D" type="Area2D" parent="." unique_id=829859306]
+collision_layer = 8
+collision_mask = 0
+script = ExtResource("4_3mea3")
+metadata/_custom_type_script = "uid://cxljn6crumpg3"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HitArea2D" unique_id=950114542]
+shape = SubResource("CircleShape2D_7v5gs")
+disabled = true
+debug_color = Color(1, 0, 0, 0)
+
+[node name="HurtArea2D" type="Area2D" parent="." unique_id=1838267691]
+collision_layer = 0
+collision_mask = 16
+script = ExtResource("5_7v5gs")
+metadata/_custom_type_script = "uid://d2rvwcr6fdon5"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HurtArea2D" unique_id=845603855]
+position = Vector2(0, -50)
+shape = SubResource("CapsuleShape2D_8sa4y")
+debug_color = Color(0, 0.96862745, 0.17405024, 0)
+
+[node name="Platformer2DComponent" type="Node" parent="." unique_id=1087576105 node_paths=PackedStringArray("actor", "wall_check")]
+script = ExtResource("3_ddoul")
+actor = NodePath("..")
+jump_strength = 1100.0
+move_left_action = &"ui_left"
+move_right_action = &"ui_right"
+jump_action = &"ui_accept"
+drop_down_action = &"ui_down"
+wall_check = NodePath("../WallCheck")
+metadata/_custom_type_script = "uid://c1afjfe6xmf03"
+
+[node name="SquashStretchComponent" type="Node" parent="." unique_id=1244685040 node_paths=PackedStringArray("actor")]
+script = ExtResource("4_j23h2")
+actor = NodePath("../SpriteOrigin")
+squash_up_width = 0.7
+squash_up_duration = 0.26
+squash_down_width = 1.4
+squash_down_duration = 0.21
+metadata/_custom_type_script = "uid://dsdgijp51msde"
+
+[node name="BounceableComponent" type="Node" parent="." unique_id=1814139337 node_paths=PackedStringArray("actor", "bounce_area")]
+script = ExtResource("5_5wa8t")
+actor = NodePath("..")
+bounce_area = NodePath("../BounceArea")
+
+[node name="StateMachine" type="Node" parent="." unique_id=1104328896 node_paths=PackedStringArray("initial_state")]
+script = ExtResource("4_8g4oa")
+initial_state = NodePath("Idle")
+metadata/_custom_type_script = "uid://dyohetfk3j202"
+
+[node name="Idle" type="Node" parent="StateMachine" unique_id=1573013986 node_paths=PackedStringArray("actor", "actor_sprite", "platformer_component", "sprite_direction_node", "sprite_origin_node", "sprite_player", "squash_component", "bounce_component")]
+script = ExtResource("5_s1rgi")
+actor = NodePath("../..")
+actor_sprite = NodePath("../../SpriteOrigin/SpriteDirection/Sprite")
+platformer_component = NodePath("../../Platformer2DComponent")
+sprite_direction_node = NodePath("../../SpriteOrigin/SpriteDirection")
+sprite_origin_node = NodePath("../../SpriteOrigin")
+sprite_player = NodePath("../../SpriteOrigin/SpritePlayer")
+squash_component = NodePath("../../SquashStretchComponent")
+bounce_component = NodePath("../../BounceableComponent")
+metadata/_custom_type_script = "uid://b77jodx2y4ck"
+
+[node name="Move" type="Node" parent="StateMachine" unique_id=841468650 node_paths=PackedStringArray("actor", "actor_sprite", "platformer_component", "sprite_direction_node", "sprite_origin_node", "sprite_player", "squash_component", "bounce_component")]
+script = ExtResource("6_j23h2")
+actor = NodePath("../..")
+actor_sprite = NodePath("../../SpriteOrigin/SpriteDirection/Sprite")
+platformer_component = NodePath("../../Platformer2DComponent")
+sprite_direction_node = NodePath("../../SpriteOrigin/SpriteDirection")
+sprite_origin_node = NodePath("../../SpriteOrigin")
+sprite_player = NodePath("../../SpriteOrigin/SpritePlayer")
+squash_component = NodePath("../../SquashStretchComponent")
+bounce_component = NodePath("../../BounceableComponent")
+metadata/_custom_type_script = "uid://b77jodx2y4ck"
+
+[node name="Air" type="Node" parent="StateMachine" unique_id=1678289253 node_paths=PackedStringArray("hurt_area_collision", "actor", "actor_sprite", "platformer_component", "sprite_direction_node", "sprite_origin_node", "sprite_player", "squash_component", "bounce_component")]
+script = ExtResource("7_0j2ni")
+hurt_area_collision = NodePath("../../HurtArea2D/CollisionShape2D")
+actor = NodePath("../..")
+actor_sprite = NodePath("../../SpriteOrigin/SpriteDirection/Sprite")
+platformer_component = NodePath("../../Platformer2DComponent")
+sprite_direction_node = NodePath("../../SpriteOrigin/SpriteDirection")
+sprite_origin_node = NodePath("../../SpriteOrigin")
+sprite_player = NodePath("../../SpriteOrigin/SpritePlayer")
+squash_component = NodePath("../../SquashStretchComponent")
+bounce_component = NodePath("../../BounceableComponent")
+metadata/_custom_type_script = "uid://b77jodx2y4ck"
+
+[node name="Drop" type="Node" parent="StateMachine" unique_id=54757855 node_paths=PackedStringArray("hurt_area_collision", "actor", "actor_sprite", "platformer_component", "sprite_direction_node", "sprite_origin_node", "sprite_player", "squash_component", "bounce_component")]
+script = ExtResource("9_0j2ni")
+hurt_area_collision = NodePath("../../HurtArea2D/CollisionShape2D")
+actor = NodePath("../..")
+actor_sprite = NodePath("../../SpriteOrigin/SpriteDirection/Sprite")
+platformer_component = NodePath("../../Platformer2DComponent")
+sprite_direction_node = NodePath("../../SpriteOrigin/SpriteDirection")
+sprite_origin_node = NodePath("../../SpriteOrigin")
+sprite_player = NodePath("../../SpriteOrigin/SpritePlayer")
+squash_component = NodePath("../../SquashStretchComponent")
+bounce_component = NodePath("../../BounceableComponent")
+metadata/_custom_type_script = "uid://b77jodx2y4ck"
+
+[node name="WallJump" type="Node" parent="StateMachine" unique_id=1379090776 node_paths=PackedStringArray("actor", "actor_sprite", "platformer_component", "sprite_direction_node", "sprite_origin_node", "sprite_player", "squash_component", "bounce_component")]
+script = ExtResource("10_v0k0e")
+actor = NodePath("../..")
+actor_sprite = NodePath("../../SpriteOrigin/SpriteDirection/Sprite")
+platformer_component = NodePath("../../Platformer2DComponent")
+sprite_direction_node = NodePath("../../SpriteOrigin/SpriteDirection")
+sprite_origin_node = NodePath("../../SpriteOrigin")
+sprite_player = NodePath("../../SpriteOrigin/SpritePlayer")
+squash_component = NodePath("../../SquashStretchComponent")
+bounce_component = NodePath("../../BounceableComponent")
+metadata/_custom_type_script = "uid://b77jodx2y4ck"
+
+[node name="HardLand" type="Node" parent="StateMachine" unique_id=237166600 node_paths=PackedStringArray("shockwave_vfx", "hit_area_collision", "hurt_area_collision", "actor", "actor_sprite", "platformer_component", "sprite_direction_node", "sprite_origin_node", "sprite_player", "squash_component", "bounce_component")]
+script = ExtResource("12_p7tob")
+shockwave_vfx = NodePath("../../ShockwaveVFX")
+hit_area_collision = NodePath("../../HitArea2D/CollisionShape2D")
+hurt_area_collision = NodePath("../../HurtArea2D/CollisionShape2D")
+actor = NodePath("../..")
+actor_sprite = NodePath("../../SpriteOrigin/SpriteDirection/Sprite")
+platformer_component = NodePath("../../Platformer2DComponent")
+sprite_direction_node = NodePath("../../SpriteOrigin/SpriteDirection")
+sprite_origin_node = NodePath("../../SpriteOrigin")
+sprite_player = NodePath("../../SpriteOrigin/SpritePlayer")
+squash_component = NodePath("../../SquashStretchComponent")
+bounce_component = NodePath("../../BounceableComponent")
+metadata/_custom_type_script = "uid://b77jodx2y4ck"
+
+[node name="Timer" type="Timer" parent="StateMachine/HardLand" unique_id=217407310]
+one_shot = true
+
+[node name="Stomp" type="AudioStreamPlayer" parent="StateMachine/HardLand" unique_id=1551753941]
+stream = ExtResource("16_8sa4y")
+
+[node name="PlayerState7" type="Node" parent="StateMachine" unique_id=504340003 node_paths=PackedStringArray("actor", "actor_sprite", "platformer_component", "sprite_direction_node", "sprite_origin_node", "sprite_player", "squash_component", "bounce_component")]
+script = ExtResource("5_6ysni")
+actor = NodePath("../..")
+actor_sprite = NodePath("../../SpriteOrigin/SpriteDirection/Sprite")
+platformer_component = NodePath("../../Platformer2DComponent")
+sprite_direction_node = NodePath("../../SpriteOrigin/SpriteDirection")
+sprite_origin_node = NodePath("../../SpriteOrigin")
+sprite_player = NodePath("../../SpriteOrigin/SpritePlayer")
+squash_component = NodePath("../../SquashStretchComponent")
+bounce_component = NodePath("../../BounceableComponent")
+metadata/_custom_type_script = "uid://b77jodx2y4ck"
+
+[connection signal="body_entered" from="HazardArea" to="." method="_on_hazard_area_body_entered"]
+[connection signal="hurt" from="HurtArea2D" to="." method="_on_hurt_area_2d_hurt"]
+[connection signal="timeout" from="StateMachine/HardLand/Timer" to="StateMachine/HardLand" method="_on_timer_timeout"]

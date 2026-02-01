@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://o8ufdw6pva20"]
+
+[ext_resource type="Resource" uid="uid://bh2851lc05pym" path="res://Music/Playlist/base_playlist.tres" id="2_upvx7"]
+
+[sub_resource type="GDScript" id="GDScript_qsyv6"]
+script/source = "extends Node
+
+@export var music_playlists: MusicPlaylist
+
+@onready var music_player_1: AudioStreamPlayer = $MusicPlayer1
+@onready var music_player_2: AudioStreamPlayer = $MusicPlayer2
+
+func _ready() -> void:
+	MusicManager.play_playlist.emit(music_playlists, true, false, true, 0.3)
+
+func start_main_song() -> void:
+	MusicManager.play_song.emit(
+		music_playlists.tracks.front(), true, true, 0.3
+	)
+"
+
+[node name="MusicManager" type="Node" unique_id=28141001]
+script = SubResource("GDScript_qsyv6")
+music_playlists = ExtResource("2_upvx7")
+
+[node name="MusicPlayer1" type="AudioStreamPlayer" parent="." unique_id=35921030]
+
+[node name="MusicPlayer2" type="AudioStreamPlayer" parent="." unique_id=891259296]
